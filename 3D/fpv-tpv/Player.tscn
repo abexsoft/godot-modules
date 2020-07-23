@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://32-32_white.png" type="Texture" id=2]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -66,3 +67,73 @@ material/0 = null
 [node name="Camera" type="Camera" parent="RotationHelper"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -2, 1.5, -4.008 )
 far = 1000.0
+
+[node name="Hub" type="Control" parent="."]
+margin_left = -2.24493
+margin_right = 1021.76
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair" type="Control" parent="Hub"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Top" type="TextureRect" parent="Hub/Crosshair"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.0
+margin_top = -20.0
+margin_right = 2.0
+margin_bottom = -4.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttom" type="TextureRect" parent="Hub/Crosshair"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.0
+margin_top = 4.0
+margin_right = 2.0
+margin_bottom = 20.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Left" type="TextureRect" parent="Hub/Crosshair"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -2.0
+margin_right = -4.0
+margin_bottom = 2.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Right" type="TextureRect" parent="Hub/Crosshair"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 2.0
+margin_top = -2.0
+margin_right = 20.0
+margin_bottom = 2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
