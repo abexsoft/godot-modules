@@ -19,10 +19,12 @@ var mode
 
 enum {FP_VIEW, TP_VIEW}
 var view
+var fpv_pos = Vector3() # local position
+var tpv_pos = Vector3() # local position
 
 enum {STD_SUBVIEW, SCOPE_SUBVIEW}
 var subview
-var scope_pos
+var scope_pos = Vector3() # local position
 
 func ready(player):
 	self.player = player
@@ -53,11 +55,11 @@ func change_view(a_view = null):
 	
 	if a_view == TP_VIEW:
 		print("Changed into TPV")
-		camera.set_translation(Vector3(-2, 1.5, -4))
+		camera.set_translation(tpv_pos)
 		view = TP_VIEW
 	else:
 		print("Changed into FPV")
-		camera.set_translation(Vector3(0, 0, 1))
+		camera.set_translation(fpv_pos)
 		view = FP_VIEW
 
 func change_subview(a_subview = null):

@@ -36,7 +36,9 @@ func create_keymap(action_name, scancode):
 func _ready():
 	init_actions()
 	cv = ConnectedView.new()
-	var bazooka_transform = $RotationHelper/Bazooka.global_transform
+	cv.fpv_pos = Vector3(0, 0, 1)
+	cv.tpv_pos = Vector3(-2, 1.5, -4)
+	var bazooka_transform = $RotationHelper/Bazooka.transform
 	cv.scope_pos = bazooka_transform.origin + bazooka_transform.basis.y * 1
 	cv.ready(self)
 
