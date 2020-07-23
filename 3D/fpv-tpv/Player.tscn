@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.2, 0.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 0.4, 1, 1 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.2, 0.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 0.4, 1, 1 )
+
+[sub_resource type="SphereMesh" id=6]
+
+[sub_resource type="CylinderMesh" id=7]
+top_radius = 0.2
+bottom_radius = 0.2
+
+[node name="Player" type="RigidBody"]
+can_sleep = false
+script = ExtResource( 1 )
+
+[node name="Body" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LeftLeg" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.5, 0 )
+shape = SubResource( 2 )
+
+[node name="LeftLegMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.5, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="RightLeg" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.5, 0 )
+shape = SubResource( 4 )
+
+[node name="RightLegMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.5, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="RotationHelper" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="BodyMesh" type="MeshInstance" parent="RotationHelper"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Bazooka" type="MeshInstance" parent="RotationHelper"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -0.9, 0.6, 0 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="RotationHelper"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -2, 1.5, -4.008 )
+far = 1000.0
