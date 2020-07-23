@@ -22,6 +22,10 @@ func init_actions():
 	input_event.button_index = BUTTON_LEFT
 	InputMap.add_action("shoot")
 	InputMap.action_add_event("shoot", input_event)
+	input_event = InputEventMouseButton.new()
+	input_event.button_index = BUTTON_RIGHT
+	InputMap.add_action("scope")
+	InputMap.action_add_event("scope", input_event)	
 	
 func create_keymap(action_name, scancode):
 	var input_event = InputEventKey.new()
@@ -32,6 +36,8 @@ func create_keymap(action_name, scancode):
 func _ready():
 	init_actions()
 	cv = ConnectedView.new()
+	var bazooka_transform = $RotationHelper/Bazooka.global_transform
+	cv.scope_pos = bazooka_transform.origin + bazooka_transform.basis.y * 1
 	cv.ready(self)
 
 func _input(event):
@@ -43,12 +49,14 @@ func _integrate_forces(state):
 	cv.integrate_forces(state)
 	if shoot_flag:
 		shoot()
+		shoot_flag = false
 	
 func shoot():
 	var b = Bullet.instance()
-	b.start($RotationHelper/Bazooka.global_transform, linear_velocity)
+	var bazooka_transform = $RotationHelper/Bazooka.global_transform
+	var start_origin = bazooka_transform.origin + bazooka_transform.basis.y * 1
+	var shoot_dir = bazooka_transform.basis.y
+	
+	b.start(start_origin, shoot_dir, linear_velocity)
 	get_parent().add_child(b)
-	shoot_flag = false
-	print("shoot")
-
 

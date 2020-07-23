@@ -20,10 +20,15 @@ var mode
 enum {FP_VIEW, TP_VIEW}
 var view
 
+enum {STD_SUBVIEW, SCOPE_SUBVIEW}
+var subview
+var scope_pos
+
 func ready(player):
 	self.player = player
 	self.mode = GROUNDING_MODE
 	self.view = TP_VIEW
+	self.subview = STD_SUBVIEW
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	rotation_helper = player.get_node("RotationHelper")
 	camera  = player.get_node("RotationHelper/Camera")
@@ -39,15 +44,32 @@ func integrate_forces(state):
 	move_player(state)
 	rotate_player(state)
 
-func change_view():
-	if view == TP_VIEW:
-		print("Changed into FPV")
-		camera.set_translation(Vector3(0, 0, 1))
-		view = FP_VIEW
-	else:
+func change_view(a_view = null):
+	if a_view == null:
+		if view == TP_VIEW:
+			a_view = FP_VIEW
+		else:
+			a_view = TP_VIEW
+	
+	if a_view == TP_VIEW:
 		print("Changed into TPV")
 		camera.set_translation(Vector3(-2, 1.5, -4))
 		view = TP_VIEW
+	else:
+		print("Changed into FPV")
+		camera.set_translation(Vector3(0, 0, 1))
+		view = FP_VIEW
+
+func change_subview(a_subview = null):
+	if a_subview == STD_SUBVIEW:
+		if subview != STD_SUBVIEW:
+			change_view(view)
+			subview = a_subview
+	else:
+		if subview != SCOPE_SUBVIEW:
+			print("Changed into Scope View")
+			camera.set_translation(scope_pos)
+			subview = SCOPE_SUBVIEW
 
 func change_mode():
 	if mode == GROUNDING_MODE:
@@ -63,6 +85,11 @@ func get_move_input(event):
 	
 	if Input.is_action_pressed("change_mode"):
 		change_mode()
+		
+	if Input.is_action_pressed("scope"):
+		change_subview(SCOPE_SUBVIEW)
+	else:
+		change_subview(STD_SUBVIEW)
 		
 	var input_movement_vector = Vector3()
 	if Input.is_action_pressed("move_forward"):
