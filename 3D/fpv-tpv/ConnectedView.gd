@@ -7,6 +7,8 @@ var rotate_x_rad = 0
 var rotate_y_rad = 0
 var rotate_z = 0
 
+var max_speed = 30.0
+
 var MOUSE_SENSITIVITY = 0.05
 var ROTATION_X_SENSITIVITY = 80
 var ROTATION_Y_SENSITIVITY = 80
@@ -147,6 +149,8 @@ func get_rotation_input(event):
 		rotate_z = 0
 
 func move_player(state):
+	if state.linear_velocity.length() > max_speed:
+		state.linear_velocity = state.linear_velocity.normalized() * max_speed
 	player.add_central_force(50 * dir)
 
 func reset_rotation_helper():
